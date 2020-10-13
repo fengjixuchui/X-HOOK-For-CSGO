@@ -1,5 +1,6 @@
 #pragma once
 #include "Sprite.h"
+#include "Testhook.h"
 #include "recvproxyhook.h"
 #include "Settings.h"	
 #include "SDK\SDK.h"
@@ -15,7 +16,7 @@
 #include "AutoWall.h"
 #include "AimBot.h"
 #include "CTickRecord.h"
-#include "CIncomingSequences.h"
+//#include "CIncomingSequences.h"
 #include "BunnyHop.h"
 #include "moonwalk.h"
 #include "AirStuck.h"
@@ -55,6 +56,7 @@
 #include "Spammer.h"
 #include "TelePort.h"
 #include "ThirdPerson.h"
+#include "noduckcooldown.h"
 #include "View.h"
 #include "SkinChanger.h"
 #include "PredictionSystem.h"
@@ -79,6 +81,7 @@
 #include "angleindicator.h"
 #include "valvedscheck.h"
 #include "FakeLatency.h"
+#include "LobbyMod.h"
 //GUI
 #include "configs.h"
 

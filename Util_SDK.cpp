@@ -1,5 +1,8 @@
 #include "util_sdk.h"
 #include "FindPattern.h"
+
+
+
 char Util::GetButtonString(ButtonCode_t key)
 {
 	switch (key)
@@ -57,6 +60,21 @@ ButtonCode_t Util::GetButtonCode(std::string buttonName)
 }
 
 
+
+typedef void(__thiscall* orgGameFunc_LoadFromBuffer)(void* thisptr, const char* resourceName, const char* pBuffer, /*IBaseFileSystem**/void* pFileSystem, const char* pPathID, void* pfnEvaluateSymbolProc);
+orgGameFunc_LoadFromBuffer pLoadFromBuffer;
+
+//void Util::LoadFromBuffer(KeyValues* pKeyValues, const char* resourceName, const char* pBuffer, /*IBaseFileSystem**/void* pFileSystem = nullptr, const char* pPathID = NULL, void* pfnEvaluateSymbolProc = nullptr)
+//{
+//	auto dwLoadFromBuffer = FindPattern("client.dll", "55 8B EC 83 E4 F8 83 EC 34 53 8B 5D 0C 89"); //55 8B EC 83 E4 F8 83 EC 34 53 8B 5D 0C 89
+//
+//	if (!pLoadFromBuffer)
+//		pLoadFromBuffer = reinterpret_cast<orgGameFunc_LoadFromBuffer>(dwLoadFromBuffer);
+//
+//	pLoadFromBuffer(pKeyValues, resourceName, pBuffer, pFileSystem, pPathID, pfnEvaluateSymbolProc);
+//}
+
+
 void Util::InitKeyValues(KeyValues* keyValues, char const * name)
 {
 	DWORD dwFunction = (DWORD)KeyValues_KeyValues;
@@ -66,9 +84,12 @@ void Util::InitKeyValues(KeyValues* keyValues, char const * name)
 		mov ecx, keyValues
 		call dwFunction
 	}
+
+	
+
 }
 
-void Util::LoadFromBuffer(KeyValues* keyValues, char const *resourceName, const char *pBuffer)
+void Util::LoadFromBuffer(KeyValues* keyValues, char const *resourceName, const char *pBuffer, /*IBaseFileSystem**/void* pFileSystem, const char* pPathID, void* pfnEvaluateSymbolProc)
 {
 	DWORD dwFunction = (DWORD)KeyValues_LoadFromBuffer;
 
@@ -100,11 +121,12 @@ IMaterial* Util::CreateMaterial(std::string type, std::string texture, bool igno
 		"\t\"$halflambert\" \"" + std::to_string(halflambert) + "\"\n"
 		"}\n" << std::flush;
 
-	std::string materialName = "X-HOOK" + std::to_string(RandomInt2(10, 100000));
+	std::string materialName = "XHOOK" + std::to_string(RandomInt2(10, 100000));
 	KeyValues* keyValues = new KeyValues(materialName.c_str());
 
 	Util::InitKeyValues(keyValues, type.c_str());
-	Util::LoadFromBuffer(keyValues, materialName.c_str(), materialData.str().c_str());
+	Util::LoadFromBuffer(keyValues, materialName.c_str(), materialData.str().c_str(), nullptr, NULL, nullptr);
 
 	return pMaterial->CreateMaterial(materialName.c_str(), keyValues);
 }
+

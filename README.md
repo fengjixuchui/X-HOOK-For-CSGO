@@ -1,5 +1,7 @@
 # X-HOOK For CS:GO
 
-Aimtux for Windows.
+A custom Aimtux fork for Windows.
 
 Use at your risk.
+
+<img src="Image/bg.png">

@@ -185,7 +185,7 @@ static void DrawBacktrackedPlayer(IMatRenderContext* matctx, const DrawModelStat
 
 		if (!Settings::ESP::Filters::legit && (Settings::ESP::Chams::type == ChamsType::CHAMS_XQZ ||
 			Settings::ESP::Chams::type == ChamsType::CHAMS_FLAT_XQZ)) {
-			if (Settings::Aimbot::LegitBackTrack)
+			/*if (Settings::Aimbot::LegitBackTrack)
 			{
 				if (localplayer->GetAlive())
 				{
@@ -205,13 +205,16 @@ static void DrawBacktrackedPlayer(IMatRenderContext* matctx, const DrawModelStat
 				Backtracking::lagRecords.clear();
 				pModelRender->ForcedMaterialOverride(hidden_material);
 				ModelRenderHook->GetOriginalFunction<DrawModelExecuteFn>(21)(pModelRender, matctx, state, pInfo, pCustomBoneToWorld);
-			}
+			}*/
+
+			pModelRender->ForcedMaterialOverride(hidden_material);
+			ModelRenderHook->GetOriginalFunction<DrawModelExecuteFn>(21)(pModelRender, matctx, state, pInfo, pCustomBoneToWorld);
 		}
 		if (Settings::ThirdPerson::enabled && entity == localplayer && localplayer->IsScoped())
 		{
 			visible_material->AlphaModulate(Settings::ThirdPerson::transparency);
 		}
-		if (Settings::Aimbot::LegitBackTrack)
+		/*if (Settings::Aimbot::LegitBackTrack)
 		{
 			if (localplayer->GetAlive())
 			{
@@ -231,7 +234,11 @@ static void DrawBacktrackedPlayer(IMatRenderContext* matctx, const DrawModelStat
 			Backtracking::lagRecords.clear();
 			pModelRender->ForcedMaterialOverride(visible_material);
 			ModelRenderHook->GetOriginalFunction<DrawModelExecuteFn>(21)(pModelRender, matctx, state, pInfo, pCustomBoneToWorld);
-		}
+		}*/
+
+	//	Backtracking::lagRecords.clear();
+		pModelRender->ForcedMaterialOverride(visible_material);
+		ModelRenderHook->GetOriginalFunction<DrawModelExecuteFn>(21)(pModelRender, matctx, state, pInfo, pCustomBoneToWorld);
 	}
 }
 
@@ -264,6 +271,8 @@ static void DrawPlayer(IMatRenderContext* matctx, const DrawModelState_t& state,
 
 		IMaterial* visible_material;
 		IMaterial* hidden_material;
+
+
 
 		switch (Settings::ESP::Chams::type) {
 		case ChamsType::CHAMS:
@@ -337,6 +346,8 @@ static void DrawPlayer(IMatRenderContext* matctx, const DrawModelState_t& state,
 
 		visible_material->AlphaModulate(1.0f);
 		hidden_material->AlphaModulate(1.0f);
+		visible_material->IncrementReferenceCount();
+		hidden_material->IncrementReferenceCount();
 
 		if (entity == localplayer) {
 			Color visColor = Color::FromImColor(Settings::ESP::Chams::localplayerColor.Color(entity));

@@ -44,7 +44,7 @@ static const char* PresetChars() {
 
 	switch (Settings::ClanTagChanger::preset) {
 	case valueType::XHOOK:
-		return "X-HOOK.XYZ";
+		return "XHOOK.XYZ";
 		break;
 	case valueType::Dogeii_Gang:
 		return "Dogeii Gang";
@@ -123,9 +123,9 @@ void ClanTagChanger::UpdateClanTagCallback()
 	}
 
 	ClanTagChanger::animations = {
-		Marquee("X-HOOK.XYZ", L"X-HOOK.XYZ"),
-		Words("X-HOOK.XYZ", L"X-HOOK.XYZ"),
-		Letters("X-HOOK.XYZ", L"X-HOOK.XYZ")
+		Marquee("XHOOK.XYZ", L"XHOOK.XYZ"),
+		Words("XHOOK.XYZ", L"XHOOK.XYZ"),
+		Letters("XHOOK.XYZ", L"XHOOK.XYZ")
 	};
 
 	int current_animation = (int)Settings::ClanTagChanger::type - 1;
@@ -137,7 +137,7 @@ std::wstring oldclantag;
 void ClanTagChanger::BeginFrame(float frameTime)
 
 {
-	static auto SetClanTag = (int(__fastcall*)(const char*, const char*))(FindPatternV2("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
+	static auto SetClanTag = (int(__fastcall*)(const char*, const char*))(FindPattern("engine.dll", "53 56 57 8B DA 8B F9 FF 15"));
 
 	if (!Settings::ClanTagChanger::enabled) {
 		ClanTagChanger::RestoreOriginalClanTag();

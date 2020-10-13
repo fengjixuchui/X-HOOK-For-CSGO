@@ -22,7 +22,7 @@ namespace Util
 			{ ItemDefinitionIndexMap.at(i::WEAPON_M4A1).entityName,					i::WEAPON_M4A1 },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_MAC10).entityName,				i::WEAPON_MAC10 },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_P90).entityName,					i::WEAPON_P90 },
-			{ ItemDefinitionIndexMap.at(i::WEAPON_MP5).entityName,					i::WEAPON_MP5 },
+			{ ItemDefinitionIndexMap.at(i::WEAPON_MP5SD).entityName,					i::WEAPON_MP5SD },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_UMP45).entityName,				i::WEAPON_UMP45 },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_XM1014).entityName,				i::WEAPON_XM1014 },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_BIZON).entityName,				i::WEAPON_BIZON },
@@ -52,7 +52,7 @@ namespace Util
 			{ ItemDefinitionIndexMap.at(i::WEAPON_USP_SILENCER).entityName,			i::WEAPON_USP_SILENCER },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_CZ75A).entityName,				i::WEAPON_CZ75A },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_REVOLVER).entityName,				i::WEAPON_REVOLVER },
-			{ ItemDefinitionIndexMap.at(i::WEAPON_KNIFE_BAYONET).entityName,		i::WEAPON_KNIFE_BAYONET },
+			{ ItemDefinitionIndexMap.at(i::WEAPON_BAYONET).entityName,		i::WEAPON_BAYONET },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_KNIFE_FLIP).entityName,			i::WEAPON_KNIFE_FLIP },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_KNIFE_GUT).entityName,			i::WEAPON_KNIFE_GUT },
 			{ ItemDefinitionIndexMap.at(i::WEAPON_KNIFE_KARAMBIT).entityName,		i::WEAPON_KNIFE_KARAMBIT },
@@ -130,7 +130,7 @@ namespace Util
 			{
 			case ItemDefinitionIndex::WEAPON_KNIFE:
 			case ItemDefinitionIndex::WEAPON_KNIFE_T:
-			case ItemDefinitionIndex::WEAPON_KNIFE_BAYONET:
+			case ItemDefinitionIndex::WEAPON_BAYONET:
 			case ItemDefinitionIndex::WEAPON_KNIFE_FLIP:
 			case ItemDefinitionIndex::WEAPON_KNIFE_GUT:
 			case ItemDefinitionIndex::WEAPON_KNIFE_KARAMBIT:
@@ -218,6 +218,22 @@ namespace Util
 			case ItemDefinitionIndex::WEAPON_TEC9:
 			case ItemDefinitionIndex::WEAPON_SAWEDOFF:
 			case ItemDefinitionIndex::WEAPON_MAC10:
+				return true;
+			default:
+				return false;
+			}
+		}
+
+		bool IsScopeable(ItemDefinitionIndex index)
+		{
+			switch (index)
+			{
+			case ItemDefinitionIndex::WEAPON_AUG:
+			case ItemDefinitionIndex::WEAPON_AWP:
+			case ItemDefinitionIndex::WEAPON_G3SG1:
+			case ItemDefinitionIndex::WEAPON_SCAR20:
+			case ItemDefinitionIndex::WEAPON_SG556:
+			case ItemDefinitionIndex::WEAPON_SSG08:
 				return true;
 			default:
 				return false;

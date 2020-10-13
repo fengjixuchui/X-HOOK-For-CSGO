@@ -181,13 +181,15 @@ void Aimbot::RenderTab()
 		ImGui::InputText("##FILTERWEAPONS", filterWeapons, IM_ARRAYSIZE(filterWeapons));
 		ImGui::PopItemWidth();
 		ImGui::ListBoxHeader("##GUNS", ImVec2(-1, -1));
-		for (auto it : ItemDefinitionIndexMap)
-		{
+	
+		for (auto it : ItemDefinitionIndexMap) {
 			bool isDefault = (int)it.first < 0;
-			if (!isDefault && !Util::Contains(Util::ToLower(std::string(filterWeapons)), Util::ToLower(Util::Items::GetItemDisplayName(it.first).c_str())))
+			if (!isDefault && !Util::Contains(Util::ToLower(std::string(filterWeapons)),
+				Util::ToLower(Util::Items::GetItemDisplayName(it.first).c_str())))
 				continue;
 
-			if (Util::Items::IsKnife(it.first) || Util::Items::IsGlove(it.first) || Util::Items::IsUtility(it.first))
+			if (Util::Items::IsKnife(it.first) || Util::Items::IsGlove(it.first) ||
+				Util::Items::IsUtility(it.first))
 				continue;
 
 			const bool item_selected = ((int)it.first == (int)currentWeapon);
@@ -197,9 +199,9 @@ void Aimbot::RenderTab()
 			bool isChanged = Settings::Aimbot::weapons.find(it.first) != Settings::Aimbot::weapons.end();
 			if (!isDefault && isChanged)
 				changeIndicator = '*';
-			formattedName = changeIndicator + (isDefault ? Util::Items::GetItemDisplayName(it.first).c_str() : Util::Items::GetItemDisplayName(it.first));
-			if (ImGui::Selectable(formattedName.c_str(), item_selected))
-			{
+			formattedName = changeIndicator + (isDefault ? Util::Items::GetItemDisplayName(it.first).c_str()
+				: Util::Items::GetItemDisplayName(it.first));
+			if (ImGui::Selectable(formattedName.c_str(), item_selected)) {
 				currentWeapon = it.first;
 				UI::ReloadWeaponSettings();
 			}
@@ -514,11 +516,11 @@ void Aimbot::RenderTab()
 				SetTooltip("Distance based spread limit. Makes the limit lower if the target is further away.");
 				
 				//not in the weapon struct config so its not saving for the different guns...
-				if (ImGui::Checkbox("Legit Backtrack", &Settings::Aimbot::LegitBackTrack))
-				{
-					UI::UpdateWeaponSettings(); // for later.
-					Backtracking::ToggleRequiredCVars(backtrack);
-				}
+				//if (ImGui::Checkbox("Toggle Backtrack", &Settings::Aimbot::backtrack))
+				//{
+				//	UI::UpdateWeaponSettings(); // for later.
+				//	Backtracking::ToggleRequiredCVars(backtrack);
+				//}
 				if (ImGui::Checkbox(XorStr("Rage Backtrack"), &backtrack)) {
 					UI::UpdateWeaponSettings();
 					Backtracking::ToggleRequiredCVars(backtrack);
